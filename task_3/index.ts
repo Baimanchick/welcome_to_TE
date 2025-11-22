@@ -45,3 +45,9 @@ const BALLONS: { [key: string]: BallonI } = {
 };
 
 // Ваш код здесь
+;(async () => {
+	const publicBallons = Object.values(BALLONS).filter(ballon => ballon.isPublic)
+	const amounts = await Promise.all(publicBallons.map(ballon => fetchBallonAmount(ballon.id)))
+	const totalAmount = amounts.reduce((sum, amount) => sum + amount, 0)
+	console.log(totalAmount)
+})()
